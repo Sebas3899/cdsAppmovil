@@ -1,20 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { LogBox } from 'react-native';
+import Navigation from "./app/navigation/Navigation"
+import NavigationLogin from './app/components/StackLogin/NavigationLogin';
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  LogBox.ignoreAllLogs(true)
+  const [exitsSesion,setExitsSession]=useState(false)
+  const [reload,setReload]=useState()
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  useEffect(()=>{
+    console.log("Entro al effect");
+    setReload(false)
+  },[reload])
+  return exitsSesion ? <Navigation/> :  <NavigationLogin  setReload={setReload}/>
+}
